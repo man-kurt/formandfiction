@@ -511,11 +511,6 @@
       transform: scale(1.05);
     }
 
-    /*
-      Keeps the original zoom and shifts the ANOL1 image
-      slightly downward inside its card.
-    */
-
     .work-anol1-card {
       background: #24213f;
     }
@@ -822,8 +817,6 @@
 
 <body>
 
-  <!-- HEADER -->
-
   <header class="site-header">
     <a class="logo" href="#top">Sara Bissen</a>
 
@@ -842,8 +835,6 @@
   </header>
 
   <main id="top">
-
-    <!-- HERO -->
 
     <section class="hero">
       <canvas id="lavaCanvas" aria-hidden="true"></canvas>
@@ -889,8 +880,6 @@
       </div>
     </section>
 
-    <!-- INTRODUCTION -->
-
     <section class="intro">
       <div>
         <div
@@ -935,8 +924,6 @@
         </p>
       </div>
     </section>
-
-    <!-- WAYS TO WORK TOGETHER -->
 
     <section class="learn" id="learn">
       <div class="learn-heading">
@@ -1136,8 +1123,6 @@
       </div>
     </section>
 
-    <!-- SELECTED WORK -->
-
     <section class="work-section" id="work">
       <div class="work-header">
         <div>
@@ -1208,13 +1193,13 @@
             >
 
             <div class="work-info">
-              <h3>ANOL1</h3>
+              <h3>KISSED BY GOD</h3>
 
               <p
-                data-en="3D animation series"
-                data-ru="Серия 3D-анимаций"
+                data-en="Digital sculpture"
+                data-ru="Цифровая скульптура"
               >
-                3D animation series
+                Digital sculpture
               </p>
             </div>
           </a>
@@ -1245,8 +1230,6 @@
         </div>
       </div>
     </section>
-
-    <!-- TEACHING PHILOSOPHY -->
 
     <section class="statement">
       <div>
@@ -1293,8 +1276,6 @@
         </p>
       </div>
     </section>
-
-    <!-- ABOUT -->
 
     <section class="about" id="about">
       <div class="about-image">
@@ -1399,8 +1380,6 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-
     <section class="contact" id="contact">
       <div>
         <div
@@ -1442,8 +1421,6 @@
 
   </main>
 
-  <!-- FOOTER -->
-
   <footer>
     <div>© 2026 Sara Bissen</div>
 
@@ -1462,8 +1439,6 @@
       </a>
     </div>
   </footer>
-
-  <!-- LANGUAGE SWITCHER -->
 
   <script>
     const enButton = document.getElementById("en-button");
@@ -1498,8 +1473,6 @@
       localStorage.getItem("preferredLanguage") || "en"
     );
   </script>
-
-  <!-- HERO ANIMATION -->
 
   <script>
     const canvas = document.getElementById("lavaCanvas");
