@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sara Bissen — Course Enrollment</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #17162b;
+      --cream: #f3f0e8;
+      --lavender: #d9d7e4;
+      --lavender-dark: #817d98;
+      --plum: #55345f;
+      --chartreuse: #c4f05a;
+      --pink: #ee82ae;
+      --line: rgba(23, 22, 43, .18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(238, 130, 174, .4),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(196, 240, 90, .5),
+          transparent 32%
+        ),
+        var(--lavender);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 5vw;
+    }
+
+    .logo {
+      color: var(--plum);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .back-link {
+      color: var(--plum);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--plum);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .language-switcher button {
+      border: 0;
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+      font-size: inherit;
+      letter-spacing: inherit;
+      opacity: .45;
+    }
+
+    .language-switcher button.active-language {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .enrollment-layout {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 7vw;
+      align-items: start;
+      width: min(1180px, 90vw);
+      margin: 75px auto;
+    }
+
+    .intro-label {
+      margin-bottom: 28px;
+      color: var(--plum);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    h1 {
+      max-width: 620px;
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(54px, 7vw, 105px);
+      font-weight: 500;
+      letter-spacing: -.08em;
+      line-height: .86;
+    }
+
+    .intro-text {
+      max-width: 430px;
+      margin-top: 35px;
+      font-size: 18px;
+    }
+
+    .course-summary {
+      margin-top: 42px;
+      padding: 25px;
+      border-left: 4px solid var(--pink);
+      background: rgba(243, 240, 232, .68);
+    }
+
+    .course-summary h2 {
+      margin-bottom: 12px;
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .course-summary p {
+      font-size: 14px;
+    }
+
+    .form-card {
+      padding: 38px;
+      background: rgba(243, 240, 232, .94);
+      box-shadow: 0 25px 70px rgba(85, 52, 95, .18);
+    }
+
+    .form-card h2 {
+      margin-bottom: 8px;
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -.05em;
+      line-height: .95;
+    }
+
+    .form-note {
+      margin-bottom: 28px;
+      color: #4b4555;
+      font-size: 13px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 7px;
+      color: var(--plum);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      outline: none;
+      background: white;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--plum);
+      box-shadow: 0 0 0 3px rgba(238, 130, 174, .25);
+    }
+
+    .price-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 28px 0;
+      padding: 18px;
+      background: var(--chartreuse);
+      color: var(--ink);
+    }
+
+    .price-box span:first-child {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    #course-price {
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+    }
+
+    .payment-heading {
+      margin-top: 30px;
+      color: var(--plum);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .payment-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .payment-link {
+      padding: 13px 8px;
+      border: 1px solid var(--plum);
+      background: var(--pink);
+      color: var(--ink);
+      font-size: 11px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .payment-link:hover {
+      background: var(--plum);
+      color: var(--cream);
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 28px;
+      padding: 17px;
+      border: 1px solid var(--ink);
+      background: var(--plum);
+      color: var(--cream);
+      cursor: pointer;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .submit-button:hover {
+      background: var(--pink);
+      color: var(--ink);
+    }
+
+    .form-footnote {
+      margin-top: 16px;
+      color: #625b6a;
+      font-size: 11px;
+    }
+
+    footer {
+      margin-top: 90px;
+      padding: 25px 5vw;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px 5vw;
+      }
+
+      .header-right {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .enrollment-layout {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        margin: 45px auto;
+      }
+
+      .form-card {
+        padding: 25px;
+      }
+
+      .payment-links {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="page-header">
+    <a
+      class="logo"
+      href="https://formandfiction.studio/"
+      data-en="Sara Bissen"
+      data-ru="Сара Биссен"
+    >
+      Sara Bissen
+    </a>
+
+    <div class="header-right">
+      <a
+        class="back-link"
+        href="https://formandfiction.studio/"
+        data-en="← Back to website"
+        data-ru="← Вернуться на сайт"
+      >
+        ← Back to website
+      </a>
+
+      <div class="language-switcher">
+        <button id="en-button" class="active-language">EN</button>
+        <span>/</span>
+        <button id="ru-button">RU</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="enrollment-layout">
+
+    <section>
+      <div
+        class="intro-label"
+        data-en="Enrollment / 3D education"
+        data-ru="Запись / Обучение 3D"
+      >
+        Enrollment / 3D education
+      </div>
+
+      <h1
+        data-en="Build your own digital worlds"
+        data-ru="Создавайте собственные цифровые миры"
+      >
+        Build your own digital worlds
+      </h1>
+
+      <p
+        class="intro-text"
+        data-en="Choose your course, send your details and complete the payment using your preferred method. Your place will be confirmed by email."
+        data-ru="Выберите курс, отправьте свои данные и произведите оплату удобным способом. Ваше место будет подтверждено по электронной почте."
+      >
+        Choose your course, send your details and complete the payment using
+        your preferred method. Your place will be confirmed by email.
+      </p>
+
+      <div class="course-summary">
+        <h2 id="summary-title">Group course</h2>
+
+        <p id="summary-text">
+          A 20-class online course covering Blender, Reallusion tools,
+          AI-assisted 3D workflows, contemporary digital art and the creation
+          of your first complex scene and animation.
+        </p>
+      </div>
+    </section>
+
+    <section class="form-card">
+      <h2
+        data-en="Enrol now"
+        data-ru="Записаться сейчас"
+      >
+        Enrol now
+      </h2>
+
+      <p
+        class="form-note"
+        data-en="Fill in your details below. After submitting the form, choose a payment method and complete your payment."
+        data-ru="Заполните форму ниже. После отправки данных выберите способ оплаты и произведите оплату."
+      >
+        Fill in your details below. After submitting the form, choose a payment
+        method and complete your payment.
+      </p>
+
+      <form id="enrollment-form">
+
+        <label
+          for="student-name"
+          data-en="Your name"
+          data-ru="Ваше имя"
+        >
+          Your name
+        </label>
+
+        <input
+          id="student-name"
+          name="name"
+          type="text"
+          placeholder="Your full name"
+          data-placeholder-en="Your full name"
+          data-placeholder-ru="Ваше полное имя"
+          required
+        >
+
+        <label
+          for="student-email"
+          data-en="Your email"
+          data-ru="Ваш email"
+        >
+          Your email
+        </label>
+
+        <input
+          id="student-email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          data-placeholder-en="you@example.com"
+          data-placeholder-ru="ваш@email.com"
+          required
+        >
+
+        <label
+          for="course"
+          data-en="Choose a course"
+          data-ru="Выберите курс"
+        >
+          Choose a course
+        </label>
+
+        <select id="course" name="course">
+          <option
+            value="group"
+            data-en="Group course — €500"
+            data-ru="Групповой курс — €500"
+          >
+            Group course — €500
+          </option>
+
+          <option
+            value="private"
+            data-en="Private course — €1,000"
+            data-ru="Индивидуальный курс — €1 000"
+          >
+            Private course — €1,000
+          </option>
+        </select>
+
+        <div class="price-box">
+          <span
+            data-en="Total course price"
+            data-ru="Общая стоимость курса"
+          >
+            Total course price
+          </span>
+
+          <strong id="course-price">€500</strong>
+        </div>
+
+        <div
+          class="payment-heading"
+          data-en="Choose your payment method"
+          data-ru="Выберите способ оплаты"
+        >
+          Choose your payment method
+        </div>
+
+        <div class="payment-links">
+
+          <!-- Replace these links with your real payment links later -->
+
+          <a
+            class="payment-link"
+            href="https://www.paypal.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="PayPal"
+            data-ru="PayPal"
+          >
+            PayPal
+          </a>
+
+          <a
+            class="payment-link"
+            href="https://www.revolut.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="Revolut"
+            data-ru="Revolut"
+          >
+            Revolut
+          </a>
+
+          <a
+            class="payment-link"
+            href="mailto:bissen@proton.me?subject=Crypto payment for 3D course"
+            data-en="Crypto"
+            data-ru="Криптовалюта"
+          >
+            Crypto
+          </a>
+        </div>
+
+        <button
+          class="submit-button"
+          type="submit"
+          data-en="Send enrollment details →"
+          data-ru="Отправить данные для записи →"
+        >
+          Send enrollment details →
+        </button>
+
+        <p
+          class="form-footnote"
+          data-en="Submitting this form opens your email application with the enrollment details prepared for bissen@proton.me. Please press “Send” in your email application, then complete your payment."
+          data-ru="После отправки формы откроется ваше почтовое приложение с подготовленным письмом для bissen@proton.me. Нажмите «Отправить» в почтовом приложении, затем произведите оплату."
+        >
+          Submitting this form opens your email application with the enrollment
+          details prepared for bissen@proton.me. Please press “Send” in your
+          email application, then complete your payment.
+        </p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Sara Bissen · bissen@proton.me
+  </footer>
+
+  <script>
+    const enButton = document.getElementById("en-button");
+    const ruButton = document.getElementById("ru-button");
+
+    let currentLanguage = "en";
+
+    const translations = {
+      en: {
+        groupTitle: "Group course",
+        groupText:
+          "A 20-class online course covering Blender, Reallusion tools, AI-assisted 3D workflows, contemporary digital art and the creation of your first complex scene and animation.",
+        privateTitle: "Private course",
+        privateText:
+          "A tailored programme of 20 private classes focused on the Blender animation workflow, AI tools and the Reallusion suite. The course can support university portfolio development or personal 3D skill-building."
+      },
+
+      ru: {
+        groupTitle: "Групповой курс",
+        groupText:
+          "Онлайн-курс из 20 занятий, посвящённый Blender, инструментам Reallusion, AI-инструментам для 3D, современному цифровому искусству и созданию вашей первой сложной сцены и анимации.",
+        privateTitle: "Индивидуальный курс",
+        privateText:
+          "Индивидуальная программа из 20 занятий, посвящённая рабочему процессу анимации в Blender, AI-инструментам и пакету Reallusion. Курс поможет подготовить портфолио для поступления в университет или развить навыки 3D."
+      }
+    };
+
+    function updateSelectOptions(language) {
+      document.querySelectorAll("#course option").forEach(option => {
+        const translation = option.getAttribute("data-" + language);
+
+        if (translation) {
+          option.textContent = translation;
+        }
+      });
+    }
+
+    function updatePlaceholders(language) {
+      document.querySelectorAll("[data-placeholder-en]").forEach(input => {
+        const placeholder = input.getAttribute(
+          "data-placeholder-" + language
+        );
+
+        if (placeholder) {
+          input.placeholder = placeholder;
+        }
+      });
+    }
+
+    function updateCourseSummary() {
+      const selectedCourse = document.getElementById("course").value;
+      const languageData = translations[currentLanguage][selectedCourse === "group"
+        ? "groupTitle"
+        : "privateTitle"
+      ];
+
+      const selectedPrice = selectedCourse === "group"
+        ? currentLanguage === "en" ? "€500" : "€500"
+        : currentLanguage === "en" ? "€1,000" : "€1 000";
+
+      const selectedText = selectedCourse === "group"
+        ? translations[currentLanguage].groupText
+        : translations[currentLanguage].privateText;
+
+      document.getElementById("summary-title").textContent = languageData;
+      document.getElementById("summary-text").textContent = selectedText;
+      document.getElementById("course-price").textContent = selectedPrice;
+    }
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-en]").forEach(element => {
+        const translation = element.getAttribute("data-" + language);
+
+        if (translation) {
+          element.textContent = translation;
+        }
+      });
+
+      updateSelectOptions(language);
+      updatePlaceholders(language);
+      updateCourseSummary();
+
+      enButton.classList.toggle("active-language", language === "en");
+      ruButton.classList.toggle("active-language", language === "ru");
+
+      localStorage.setItem("preferredLanguage", language);
+    }
+
+    enButton.addEventListener("click", () => {
+      setLanguage("en");
+    });
+
+    ruButton.addEventListener("click", () => {
+      setLanguage("ru");
+    });
+
+    document.getElementById("course").addEventListener("change", () => {
+      updateCourseSummary();
+    });
+
+    const requestedCourse =
+      new URLSearchParams(window.location.search).get("course");
+
+    if (requestedCourse === "private") {
+      document.getElementById("course").value = "private";
+    } else {
+      document.getElementById("course").value = "group";
+    }
+
+    const savedLanguage =
+      localStorage.getItem("preferredLanguage") || "en";
+
+    setLanguage(savedLanguage);
+
+    document
+      .getElementById("enrollment-form")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document
+          .getElementById("student-name")
+          .value
+          .trim();
+
+        const email = document
+          .getElementById("student-email")
+          .value
+          .trim();
+
+        const selectedCourse =
+          document.getElementById("course").value;
+
+        const isGroupCourse = selectedCourse === "group";
+
+        const courseName = currentLanguage === "ru"
+          ? isGroupCourse ? "Групповой курс" : "Индивидуальный курс"
+          : isGroupCourse ? "Group course" : "Private course";
+
+        const coursePrice = isGroupCourse
+          ? "€500"
+          : currentLanguage === "ru" ? "€1 000" : "€1,000";
+
+        const subject = encodeURIComponent(
+          currentLanguage === "ru"
+            ? "Запись на курс — " + courseName
+            : "Course enrollment — " + courseName
+        );
+
+        const body = currentLanguage === "ru"
+          ? encodeURIComponent(
+              "Здравствуйте, Сара!\n\n" +
+              "Я хочу записаться на следующий курс:\n\n" +
+              "Курс: " + courseName + "\n" +
+              "Стоимость: " + coursePrice + "\n" +
+              "Имя: " + name + "\n" +
+              "Email: " + email + "\n\n" +
+              "Я произведу оплату одним из способов, указанных на странице записи.\n\n" +
+              "Спасибо."
+            )
+          : encodeURIComponent(
+              "Hello Sara,\n\n" +
+              "I would like to enrol in the following course:\n\n" +
+              "Course: " + courseName + "\n" +
+              "Price: " + coursePrice + "\n" +
+              "Name: " + name + "\n" +
+              "Email: " + email + "\n\n" +
+              "I will complete the payment using one of the payment options on the enrollment page.\n\n" +
+              "Thank you."
+            );
+
+        window.location.href =
+          "mailto:bissen@proton.me?subject=" +
+          subject +
+          "&body=" +
+          body;
+      });
+  </script>
+
+</body>
+</html>
