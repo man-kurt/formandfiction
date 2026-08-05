@@ -20,6 +20,7 @@
       --chartreuse: #c4f05a;
       --pink: #ee82ae;
       --line: rgba(23, 22, 43, .18);
+      --muted: #625b6a;
     }
 
     * {
@@ -225,7 +226,6 @@
       margin: 28px 0;
       padding: 18px;
       background: var(--chartreuse);
-      color: var(--ink);
     }
 
     .price-box span:first-child {
@@ -248,26 +248,69 @@
       letter-spacing: .1em;
     }
 
-    .payment-links {
+    .payment-options {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 14px;
     }
 
-    .payment-link {
-      padding: 13px 8px;
+    .payment-option {
+      padding: 20px;
+      border: 1px solid rgba(85, 52, 95, .22);
+      background: rgba(255, 255, 255, .65);
+    }
+
+    .payment-option h3 {
+      margin-bottom: 12px;
+      color: var(--plum);
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+
+    .payment-option p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .paypal-qr {
+      display: block;
+      width: 150px;
+      height: 150px;
+      margin: 15px auto 5px;
+      object-fit: contain;
+      background: white;
+    }
+
+    .crypto-address {
+      display: block;
+      margin-top: 15px;
+      padding: 12px;
+      overflow-wrap: anywhere;
+      background: var(--lavender);
+      color: var(--plum);
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      user-select: all;
+    }
+
+    .copy-button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
       border: 1px solid var(--plum);
       background: var(--pink);
       color: var(--ink);
-      font-size: 11px;
-      text-align: center;
+      cursor: pointer;
+      font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      letter-spacing: .07em;
       transition: background .25s ease, color .25s ease;
     }
 
-    .payment-link:hover {
+    .copy-button:hover {
       background: var(--plum);
       color: var(--cream);
     }
@@ -291,10 +334,33 @@
       color: var(--ink);
     }
 
+    .submit-button:disabled {
+      cursor: wait;
+      opacity: .65;
+    }
+
     .form-footnote {
       margin-top: 16px;
-      color: #625b6a;
+      color: var(--muted);
       font-size: 11px;
+    }
+
+    .success-message,
+    .error-message {
+      display: none;
+      margin-top: 22px;
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .success-message {
+      background: var(--chartreuse);
+      color: var(--ink);
+    }
+
+    .error-message {
+      background: #f5b19c;
+      color: var(--ink);
     }
 
     footer {
@@ -329,7 +395,7 @@
         padding: 25px;
       }
 
-      .payment-links {
+      .payment-options {
         grid-template-columns: 1fr;
       }
     }
@@ -405,6 +471,7 @@
     </section>
 
     <section class="form-card">
+
       <h2
         data-en="Enrol now"
         data-ru="Записаться сейчас"
@@ -414,14 +481,42 @@
 
       <p
         class="form-note"
-        data-en="Fill in your details below. After submitting the form, choose a payment method and complete your payment."
-        data-ru="Заполните форму ниже. После отправки данных выберите способ оплаты и произведите оплату."
+        data-en="Fill in your details below. Your submission will be sent directly without opening Outlook or another email application."
+        data-ru="Заполните форму ниже. Ваши данные будут отправлены напрямую, без открытия Outlook или другого почтового приложения."
       >
-        Fill in your details below. After submitting the form, choose a payment
-        method and complete your payment.
+        Fill in your details below. Your submission will be sent directly
+        without opening Outlook or another email application.
       </p>
 
-      <form id="enrollment-form">
+      <form
+        id="enrollment-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+      >
+
+        <input
+          type="hidden"
+          name="access_key"
+          value="cc9a6399-9a70-4d0a-b985-ea2d9ea4dd29"
+        >
+
+        <input
+          type="hidden"
+          name="subject"
+          value="New 3D course enrollment"
+        >
+
+        <input
+          type="hidden"
+          name="from_name"
+          value="Form and Fiction enrollment"
+        >
+
+        <input
+          type="hidden"
+          name="botcheck"
+          value=""
+        >
 
         <label
           for="student-name"
@@ -498,66 +593,137 @@
 
         <div
           class="payment-heading"
-          data-en="Choose your payment method"
-          data-ru="Выберите способ оплаты"
+          data-en="Payment options"
+          data-ru="Способы оплаты"
         >
-          Choose your payment method
+          Payment options
         </div>
 
-        <div class="payment-links">
+        <div class="payment-options">
 
-          <!-- Replace these links with your real payment links later -->
+          <div class="payment-option">
+            <h3>PayPal</h3>
 
-          <a
-            class="payment-link"
-            href="https://www.paypal.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+            <p
+              data-en="Scan the QR code with your phone to pay through PayPal."
+              data-ru="Отсканируйте QR-код телефоном, чтобы оплатить через PayPal."
+            >
+              Scan the QR code with your phone to pay through PayPal.
+            </p>
+
+            <img
+              class="paypal-qr"
+              src="paypal-qr.png"
+              alt="PayPal payment QR code"
+            >
+          </div>
+
+          <div class="payment-option">
+            <h3>Ethereum</h3>
+
+            <p
+              data-en="Send the payment to this Ethereum wallet address:"
+              data-ru="Отправьте оплату на этот Ethereum-адрес:"
+            >
+              Send the payment to this Ethereum wallet address:
+            </p>
+
+            <code
+              class="crypto-address"
+              id="ethereum-address"
+            >
+              0x14083cC59798470a6FDc6EA817A23374112360C3
+            </code>
+
+            <button
+              class="copy-button"
+              id="copy-wallet-button"
+              type="button"
+              data-en="Copy wallet address"
+              data-ru="Скопировать адрес"
+            >
+              Copy wallet address
+            </button>
+          </div>
+
+        </div>
+
+        <label
+          for="payment-method"
+          data-en="Payment method"
+          data-ru="Способ оплаты"
+        >
+          Payment method
+        </label>
+
+        <select
+          id="payment-method"
+          name="payment_method"
+          required
+        >
+          <option
+            value=""
+            data-en="Select payment method"
+            data-ru="Выберите способ оплаты"
+          >
+            Select payment method
+          </option>
+
+          <option
+            value="PayPal"
             data-en="PayPal"
             data-ru="PayPal"
           >
             PayPal
-          </a>
+          </option>
 
-          <a
-            class="payment-link"
-            href="https://www.revolut.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-en="Revolut"
-            data-ru="Revolut"
+          <option
+            value="Ethereum"
+            data-en="Ethereum"
+            data-ru="Ethereum"
           >
-            Revolut
-          </a>
-
-          <a
-            class="payment-link"
-            href="mailto:bissen@proton.me?subject=Crypto payment for 3D course"
-            data-en="Crypto"
-            data-ru="Криптовалюта"
-          >
-            Crypto
-          </a>
-        </div>
+            Ethereum
+          </option>
+        </select>
 
         <button
           class="submit-button"
+          id="submit-button"
           type="submit"
-          data-en="Send enrollment details →"
-          data-ru="Отправить данные для записи →"
+          data-en="Submit enrollment →"
+          data-ru="Отправить заявку →"
         >
-          Send enrollment details →
+          Submit enrollment →
         </button>
 
         <p
           class="form-footnote"
-          data-en="Submitting this form opens your email application with the enrollment details prepared for bissen@proton.me. Please press “Send” in your email application, then complete your payment."
-          data-ru="После отправки формы откроется ваше почтовое приложение с подготовленным письмом для bissen@proton.me. Нажмите «Отправить» в почтовом приложении, затем произведите оплату."
+          data-en="Your details will be sent securely to Sara. No email application is required."
+          data-ru="Ваши данные будут безопасно отправлены Саре. Почтовое приложение не требуется."
         >
-          Submitting this form opens your email application with the enrollment
-          details prepared for bissen@proton.me. Please press “Send” in your
-          email application, then complete your payment.
+          Your details will be sent securely to Sara. No email application is
+          required.
         </p>
+
+        <div
+          class="success-message"
+          id="success-message"
+          data-en="Thank you. Your enrollment request has been sent successfully."
+          data-ru="Спасибо. Ваша заявка на обучение успешно отправлена."
+        >
+          Thank you. Your enrollment request has been sent successfully.
+        </div>
+
+        <div
+          class="error-message"
+          id="error-message"
+          data-en="Something went wrong. Please try again or contact Sara directly at bissen@proton.me."
+          data-ru="Произошла ошибка. Попробуйте ещё раз или свяжитесь с Сарой напрямую: bissen@proton.me."
+        >
+          Something went wrong. Please try again or contact Sara directly at
+          bissen@proton.me.
+        </div>
+
       </form>
     </section>
 
@@ -570,75 +736,52 @@
   <script>
     const enButton = document.getElementById("en-button");
     const ruButton = document.getElementById("ru-button");
+    const courseSelect = document.getElementById("course");
+    const paymentSelect = document.getElementById("payment-method");
+    const coursePrice = document.getElementById("course-price");
+    const summaryTitle = document.getElementById("summary-title");
+    const summaryText = document.getElementById("summary-text");
+    const enrollmentForm = document.getElementById("enrollment-form");
+    const submitButton = document.getElementById("submit-button");
+    const successMessage = document.getElementById("success-message");
+    const errorMessage = document.getElementById("error-message");
+    const copyWalletButton = document.getElementById("copy-wallet-button");
 
     let currentLanguage = "en";
 
-    const translations = {
+    const courseData = {
       en: {
-        groupTitle: "Group course",
-        groupText:
-          "A 20-class online course covering Blender, Reallusion tools, AI-assisted 3D workflows, contemporary digital art and the creation of your first complex scene and animation.",
-        privateTitle: "Private course",
-        privateText:
-          "A tailored programme of 20 private classes focused on the Blender animation workflow, AI tools and the Reallusion suite. The course can support university portfolio development or personal 3D skill-building."
+        group: {
+          title: "Group course",
+          price: "€500",
+          text:
+            "A 20-class online course covering Blender, Reallusion tools, AI-assisted 3D workflows, contemporary digital art and the creation of your first complex scene and animation."
+        },
+        private: {
+          title: "Private course",
+          price: "€1,000",
+          text:
+            "A tailored programme of 20 private classes focused on the Blender animation workflow, AI tools and the Reallusion suite. The course can support university portfolio development or personal 3D skill-building."
+        }
       },
 
       ru: {
-        groupTitle: "Групповой курс",
-        groupText:
-          "Онлайн-курс из 20 занятий, посвящённый Blender, инструментам Reallusion, AI-инструментам для 3D, современному цифровому искусству и созданию вашей первой сложной сцены и анимации.",
-        privateTitle: "Индивидуальный курс",
-        privateText:
-          "Индивидуальная программа из 20 занятий, посвящённая рабочему процессу анимации в Blender, AI-инструментам и пакету Reallusion. Курс поможет подготовить портфолио для поступления в университет или развить навыки 3D."
+        group: {
+          title: "Групповой курс",
+          price: "€500",
+          text:
+            "Онлайн-курс из 20 занятий, посвящённый Blender, инструментам Reallusion, AI-инструментам для 3D, современному цифровому искусству и созданию вашей первой сложной сцены и анимации."
+        },
+        private: {
+          title: "Индивидуальный курс",
+          price: "€1 000",
+          text:
+            "Индивидуальная программа из 20 занятий, посвящённая рабочему процессу анимации в Blender, AI-инструментам и пакету Reallusion. Курс поможет подготовить портфолио для поступления в университет или развить навыки 3D."
+        }
       }
     };
 
-    function updateSelectOptions(language) {
-      document.querySelectorAll("#course option").forEach(option => {
-        const translation = option.getAttribute("data-" + language);
-
-        if (translation) {
-          option.textContent = translation;
-        }
-      });
-    }
-
-    function updatePlaceholders(language) {
-      document.querySelectorAll("[data-placeholder-en]").forEach(input => {
-        const placeholder = input.getAttribute(
-          "data-placeholder-" + language
-        );
-
-        if (placeholder) {
-          input.placeholder = placeholder;
-        }
-      });
-    }
-
-    function updateCourseSummary() {
-      const selectedCourse = document.getElementById("course").value;
-      const languageData = translations[currentLanguage][selectedCourse === "group"
-        ? "groupTitle"
-        : "privateTitle"
-      ];
-
-      const selectedPrice = selectedCourse === "group"
-        ? currentLanguage === "en" ? "€500" : "€500"
-        : currentLanguage === "en" ? "€1,000" : "€1 000";
-
-      const selectedText = selectedCourse === "group"
-        ? translations[currentLanguage].groupText
-        : translations[currentLanguage].privateText;
-
-      document.getElementById("summary-title").textContent = languageData;
-      document.getElementById("summary-text").textContent = selectedText;
-      document.getElementById("course-price").textContent = selectedPrice;
-    }
-
-    function setLanguage(language) {
-      currentLanguage = language;
-      document.documentElement.lang = language;
-
+    function updateTranslatedElements(language) {
       document.querySelectorAll("[data-en]").forEach(element => {
         const translation = element.getAttribute("data-" + language);
 
@@ -647,15 +790,55 @@
         }
       });
 
-      updateSelectOptions(language);
-      updatePlaceholders(language);
-      updateCourseSummary();
+      document.querySelectorAll("[data-placeholder-en]").forEach(element => {
+        const placeholder = element.getAttribute(
+          "data-placeholder-" + language
+        );
 
-      enButton.classList.toggle("active-language", language === "en");
-      ruButton.classList.toggle("active-language", language === "ru");
+        if (placeholder) {
+          element.placeholder = placeholder;
+        }
+      });
+
+      document.querySelectorAll("option[data-en]").forEach(option => {
+        const translation = option.getAttribute("data-" + language);
+
+        if (translation) {
+          option.textContent = translation;
+        }
+      });
+    }
+
+    function updateCourse() {
+      const selectedCourse = courseSelect.value;
+      const course = courseData[currentLanguage][selectedCourse];
+
+      summaryTitle.textContent = course.title;
+      summaryText.textContent = course.text;
+      coursePrice.textContent = course.price;
+    }
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      document.documentElement.lang = language;
+
+      updateTranslatedElements(language);
+      updateCourse();
+
+      enButton.classList.toggle(
+        "active-language",
+        language === "en"
+      );
+
+      ruButton.classList.toggle(
+        "active-language",
+        language === "ru"
+      );
 
       localStorage.setItem("preferredLanguage", language);
     }
+
+    courseSelect.addEventListener("change", updateCourse);
 
     enButton.addEventListener("click", () => {
       setLanguage("en");
@@ -665,86 +848,111 @@
       setLanguage("ru");
     });
 
-    document.getElementById("course").addEventListener("change", () => {
-      updateCourseSummary();
+    copyWalletButton.addEventListener("click", async () => {
+      const walletAddress =
+        document.getElementById("ethereum-address").textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(walletAddress);
+
+        copyWalletButton.textContent =
+          currentLanguage === "ru"
+            ? "Адрес скопирован"
+            : "Address copied";
+
+        setTimeout(() => {
+          copyWalletButton.textContent =
+            currentLanguage === "ru"
+              ? "Скопировать адрес"
+              : "Copy wallet address";
+        }, 2000);
+      } catch {
+        window.prompt(
+          currentLanguage === "ru"
+            ? "Скопируйте Ethereum-адрес:"
+            : "Copy the Ethereum address:",
+          walletAddress
+        );
+      }
+    });
+
+    enrollmentForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      successMessage.style.display = "none";
+      errorMessage.style.display = "none";
+
+      submitButton.disabled = true;
+      submitButton.textContent =
+        currentLanguage === "ru"
+          ? "Отправка..."
+          : "Sending...";
+
+      const selectedCourse = courseSelect.value;
+      const course = courseData[currentLanguage][selectedCourse];
+
+      const courseDetails = document.createElement("input");
+      courseDetails.type = "hidden";
+      courseDetails.name = "course_price";
+      courseDetails.value = course.title + " — " + course.price;
+
+      enrollmentForm.appendChild(courseDetails);
+
+      try {
+        const response = await fetch(
+          enrollmentForm.action,
+          {
+            method: "POST",
+            body: new FormData(enrollmentForm),
+            headers: {
+              Accept: "application/json"
+            }
+          }
+        );
+
+        if (response.ok) {
+          successMessage.style.display = "block";
+          enrollmentForm.reset();
+
+          courseSelect.value = "group";
+          paymentSelect.value = "";
+          updateCourse();
+
+          successMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        } else {
+          errorMessage.style.display = "block";
+        }
+      } catch {
+        errorMessage.style.display = "block";
+      } finally {
+        if (courseDetails.parentNode) {
+          courseDetails.remove();
+        }
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          currentLanguage === "ru"
+            ? "Отправить заявку →"
+            : "Submit enrollment →";
+      }
     });
 
     const requestedCourse =
       new URLSearchParams(window.location.search).get("course");
 
     if (requestedCourse === "private") {
-      document.getElementById("course").value = "private";
+      courseSelect.value = "private";
     } else {
-      document.getElementById("course").value = "group";
+      courseSelect.value = "group";
     }
 
-    const savedLanguage =
-      localStorage.getItem("preferredLanguage") || "en";
-
-    setLanguage(savedLanguage);
-
-    document
-      .getElementById("enrollment-form")
-      .addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const name = document
-          .getElementById("student-name")
-          .value
-          .trim();
-
-        const email = document
-          .getElementById("student-email")
-          .value
-          .trim();
-
-        const selectedCourse =
-          document.getElementById("course").value;
-
-        const isGroupCourse = selectedCourse === "group";
-
-        const courseName = currentLanguage === "ru"
-          ? isGroupCourse ? "Групповой курс" : "Индивидуальный курс"
-          : isGroupCourse ? "Group course" : "Private course";
-
-        const coursePrice = isGroupCourse
-          ? "€500"
-          : currentLanguage === "ru" ? "€1 000" : "€1,000";
-
-        const subject = encodeURIComponent(
-          currentLanguage === "ru"
-            ? "Запись на курс — " + courseName
-            : "Course enrollment — " + courseName
-        );
-
-        const body = currentLanguage === "ru"
-          ? encodeURIComponent(
-              "Здравствуйте, Сара!\n\n" +
-              "Я хочу записаться на следующий курс:\n\n" +
-              "Курс: " + courseName + "\n" +
-              "Стоимость: " + coursePrice + "\n" +
-              "Имя: " + name + "\n" +
-              "Email: " + email + "\n\n" +
-              "Я произведу оплату одним из способов, указанных на странице записи.\n\n" +
-              "Спасибо."
-            )
-          : encodeURIComponent(
-              "Hello Sara,\n\n" +
-              "I would like to enrol in the following course:\n\n" +
-              "Course: " + courseName + "\n" +
-              "Price: " + coursePrice + "\n" +
-              "Name: " + name + "\n" +
-              "Email: " + email + "\n\n" +
-              "I will complete the payment using one of the payment options on the enrollment page.\n\n" +
-              "Thank you."
-            );
-
-        window.location.href =
-          "mailto:bissen@proton.me?subject=" +
-          subject +
-          "&body=" +
-          body;
-      });
+    setLanguage(
+      localStorage.getItem("preferredLanguage") || "en"
+    );
   </script>
 
 </body>
