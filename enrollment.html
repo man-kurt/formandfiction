@@ -19,6 +19,7 @@
       --plum: #55345f;
       --chartreuse: #c4f05a;
       --pink: #ee82ae;
+      --peach: #f5b19c;
       --line: rgba(23, 22, 43, .18);
       --muted: #625b6a;
     }
@@ -299,50 +300,119 @@
     .copy-button {
       width: 100%;
       margin-top: 10px;
-      padding: 10px;
-      border: 1px solid var(--plum);
-      background: var(--pink);
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--pink), var(--peach));
       color: var(--ink);
       cursor: pointer;
       font-size: 10px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .07em;
-      transition: background .25s ease, color .25s ease;
+      box-shadow: 0 5px 0 var(--plum);
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
     }
 
     .copy-button:hover {
-      background: var(--plum);
-      color: var(--cream);
+      background: linear-gradient(135deg, #ff9fc5, #ffc0aa);
+      color: var(--ink);
+      box-shadow: 0 8px 0 var(--plum);
+      transform: translateY(-3px);
+    }
+
+    .copy-button:active {
+      box-shadow: 0 2px 0 var(--plum);
+      transform: translateY(3px);
     }
 
     .submit-button {
+      position: relative;
       width: 100%;
+      min-height: 64px;
       margin-top: 28px;
-      padding: 17px;
-      border: 1px solid var(--ink);
-      background: var(--plum);
-      color: var(--cream);
+      padding: 19px 28px;
+      overflow: hidden;
+      isolation: isolate;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--chartreuse), #e7ffa4);
+      color: var(--ink);
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .1em;
-      transition: background .25s ease, color .25s ease;
+      box-shadow:
+        0 9px 0 var(--plum),
+        0 20px 38px rgba(85,52,95,.26);
+      transform: translateY(0);
+      transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        background .22s ease,
+        color .22s ease;
+    }
+
+    .submit-button::before {
+      position: absolute;
+      z-index: -1;
+      top: -35%;
+      bottom: -35%;
+      left: -50%;
+      width: 28%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.8),
+        transparent
+      );
+      content: "";
+      transform: skewX(-22deg);
+      transition: left .6s cubic-bezier(.2,.7,.2,1);
     }
 
     .submit-button:hover {
-      background: var(--pink);
+      background: linear-gradient(135deg, #d9ff78, #f2ffc6);
       color: var(--ink);
+      box-shadow:
+        0 13px 0 var(--plum),
+        0 28px 48px rgba(85,52,95,.32);
+      transform: translateY(-4px);
+    }
+
+    .submit-button:hover::before {
+      left: 125%;
+    }
+
+    .submit-button:active {
+      box-shadow:
+        0 3px 0 var(--plum),
+        0 10px 20px rgba(85,52,95,.22);
+      transform: translateY(6px);
+    }
+
+    .copy-button:focus-visible,
+    .submit-button:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 5px;
     }
 
     .submit-button:disabled {
       cursor: wait;
       opacity: .65;
+      box-shadow: 0 4px 0 var(--plum);
+      transform: translateY(4px);
     }
 
     .form-footnote {
-      margin-top: 16px;
+      margin-top: 22px;
       color: var(--muted);
       font-size: 11px;
+      text-align: center;
     }
 
     .success-message,
@@ -397,6 +467,18 @@
 
       .payment-options {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .copy-button,
+      .submit-button,
+      .submit-button::before {
+        transition: none;
       }
     }
   </style>
@@ -690,10 +772,11 @@
           class="submit-button"
           id="submit-button"
           type="submit"
-          data-en="Submit enrollment →"
-          data-ru="Отправить заявку →"
+          aria-live="polite"
+          data-en="Complete my enrolment →"
+          data-ru="Завершить запись →"
         >
-          Submit enrollment →
+          Complete my enrolment →
         </button>
 
         <p
@@ -936,8 +1019,8 @@
 
         submitButton.textContent =
           currentLanguage === "ru"
-            ? "Отправить заявку →"
-            : "Submit enrollment →";
+            ? "Завершить запись →"
+            : "Complete my enrolment →";
       }
     });
 
