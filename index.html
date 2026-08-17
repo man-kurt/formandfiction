@@ -296,6 +296,143 @@
       margin-top: 24px;
     }
 
+    /* WHY THIS COURSE */
+
+    .why-course {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 92% 12%, rgba(238,130,174,.2), transparent 28%),
+        radial-gradient(circle at 8% 88%, rgba(196,240,90,.12), transparent 30%),
+        var(--ink);
+      color: var(--cream);
+    }
+
+    .why-course::before {
+      position: absolute;
+      z-index: -1;
+      top: -170px;
+      right: -120px;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(245,177,156,.24);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .why-layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: start;
+      gap: 8vw;
+    }
+
+    .why-course .section-label {
+      color: var(--chartreuse);
+    }
+
+    .why-course h2 {
+      max-width: 760px;
+      font-size: clamp(50px, 7vw, 108px);
+      letter-spacing: -.075em;
+      line-height: .86;
+    }
+
+    .why-lead {
+      max-width: 540px;
+      color: rgba(243,240,232,.84);
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .why-lead strong {
+      color: var(--peach);
+      font-weight: 500;
+    }
+
+    .why-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 75px;
+      border: 1px solid rgba(243,240,232,.2);
+      background: rgba(243,240,232,.2);
+    }
+
+    .why-card {
+      min-height: 260px;
+      padding: 28px;
+      background: rgba(23,22,43,.96);
+    }
+
+    .why-number {
+      display: block;
+      margin-bottom: 55px;
+      color: var(--chartreuse);
+      font-size: 11px;
+      letter-spacing: .12em;
+    }
+
+    .why-card h3 {
+      max-width: 300px;
+      margin-bottom: 16px;
+      color: var(--peach);
+      font-family: "DM Sans", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -.035em;
+      line-height: 1.05;
+    }
+
+    .why-card p {
+      max-width: 340px;
+      color: rgba(243,240,232,.7);
+      font-size: 14px;
+    }
+
+    .why-outcome {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: end;
+      gap: 8vw;
+      margin-top: 58px;
+      padding-top: 35px;
+      border-top: 1px solid rgba(243,240,232,.22);
+    }
+
+    .why-outcome h3 {
+      max-width: 770px;
+      color: var(--cream);
+      font-size: clamp(32px, 4.2vw, 62px);
+      letter-spacing: -.055em;
+      line-height: .95;
+    }
+
+    .why-action {
+      max-width: 420px;
+    }
+
+    .why-action p {
+      color: rgba(243,240,232,.72);
+      font-size: 14px;
+    }
+
+    .why-action .course-link {
+      background: linear-gradient(135deg, var(--pink), var(--peach));
+      box-shadow:
+        0 8px 0 #8b385f,
+        0 18px 36px rgba(0,0,0,.28);
+    }
+
+    .why-action .course-link:hover {
+      background: linear-gradient(135deg, #ff9fc5, #ffc0aa);
+      color: var(--ink);
+      box-shadow:
+        0 12px 0 #8b385f,
+        0 24px 45px rgba(0,0,0,.34);
+    }
+
     /* LEARNING */
 
     .learn {
@@ -415,24 +552,78 @@
     }
 
     .course-link {
+      position: relative;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       align-self: flex-start;
+      width: 100%;
+      min-height: 54px;
       margin-top: 20px;
-      padding: 14px 17px;
-      border: 1px solid var(--plum);
-      background: var(--pink);
+      padding: 16px 22px;
+      overflow: hidden;
+      isolation: isolate;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--chartreuse), #e4ff98);
       color: var(--ink);
       font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .07em;
-      transition: background .25s ease, color .25s ease;
+      letter-spacing: .075em;
+      box-shadow:
+        0 8px 0 var(--plum),
+        0 17px 32px rgba(85,52,95,.22);
+      transform: translateY(0);
+      transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        background .22s ease,
+        color .22s ease;
+    }
+
+    .course-link::before {
+      position: absolute;
+      z-index: -1;
+      top: -30%;
+      bottom: -30%;
+      left: -55%;
+      width: 32%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.72),
+        transparent
+      );
+      content: "";
+      transform: skewX(-22deg);
+      transition: left .55s cubic-bezier(.2,.7,.2,1);
     }
 
     .course-link:hover {
-      background: var(--plum);
-      color: var(--cream);
+      background: linear-gradient(135deg, #d8ff75, #f0ffbd);
+      color: var(--ink);
+      box-shadow:
+        0 12px 0 var(--plum),
+        0 24px 40px rgba(85,52,95,.28);
+      transform: translateY(-4px);
+    }
+
+    .course-link:hover::before {
+      left: 125%;
+    }
+
+    .course-link:active {
+      box-shadow:
+        0 3px 0 var(--plum),
+        0 8px 18px rgba(85,52,95,.2);
+      transform: translateY(5px);
+    }
+
+    .course-link:focus-visible,
+    .contact-button:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 5px;
     }
 
     /* SELECTED WORK */
@@ -678,19 +869,68 @@
     }
 
     .contact-button {
-      display: inline-block;
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       margin-top: 38px;
-      padding: 17px 25px;
-      border: 1px solid var(--ink);
+      padding: 18px 28px;
+      overflow: hidden;
+      isolation: isolate;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--cream);
       font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .1em;
-      transition: background .25s ease, color .25s ease;
+      box-shadow:
+        0 8px 0 var(--plum),
+        0 18px 35px rgba(23,22,43,.22);
+      transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        background .22s ease,
+        color .22s ease;
+    }
+
+    .contact-button::before {
+      position: absolute;
+      z-index: -1;
+      top: -30%;
+      bottom: -30%;
+      left: -55%;
+      width: 32%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+      );
+      content: "";
+      transform: skewX(-22deg);
+      transition: left .55s cubic-bezier(.2,.7,.2,1);
     }
 
     .contact-button:hover {
-      background: var(--ink);
+      background: var(--plum);
       color: var(--chartreuse);
+      box-shadow:
+        0 12px 0 var(--ink),
+        0 24px 42px rgba(23,22,43,.28);
+      transform: translateY(-4px);
+    }
+
+    .contact-button:hover::before {
+      left: 125%;
+    }
+
+    .contact-button:active {
+      box-shadow:
+        0 3px 0 var(--ink),
+        0 8px 18px rgba(23,22,43,.2);
+      transform: translateY(5px);
     }
 
     /* FOOTER */
@@ -746,6 +986,8 @@
       }
 
       .intro,
+      .why-layout,
+      .why-outcome,
       .learn-heading,
       .statement,
       .about,
@@ -759,8 +1001,17 @@
       }
 
       .offerings,
+      .why-cards,
       .work-grid {
         grid-template-columns: 1fr;
+      }
+
+      .why-card {
+        min-height: 0;
+      }
+
+      .why-number {
+        margin-bottom: 30px;
       }
 
       .offering {
@@ -809,6 +1060,13 @@
       }
 
       .work-card img {
+        transition: none;
+      }
+
+      .course-link,
+      .course-link::before,
+      .contact-button,
+      .contact-button::before {
         transition: none;
       }
     }
@@ -873,7 +1131,7 @@
             research-driven storytelling through 3D.
           </p>
 
-          <a class="circle-arrow" href="#learn" aria-label="Scroll down">
+          <a class="circle-arrow" href="#why-course" aria-label="Scroll down">
             ↓
           </a>
         </div>
@@ -925,15 +1183,141 @@
       </div>
     </section>
 
+    <section class="why-course" id="why-course" aria-labelledby="why-course-title">
+      <div class="why-layout">
+        <div>
+          <div
+            class="section-label"
+            data-en="02 / Why this course"
+            data-ru="02 / Зачем вам этот курс"
+          >
+            02 / Why this course
+          </div>
+
+          <h2
+            id="why-course-title"
+            data-en="Your ideas deserve more than another saved tutorial"
+            data-ru="Ваши идеи заслуживают большего, чем ещё один сохранённый туториал"
+          >
+            Your ideas deserve more than another saved tutorial
+          </h2>
+        </div>
+
+        <p class="why-lead">
+          <span
+            data-en="If you have been collecting references, postponing a portfolio or carrying an image you cannot yet make, the problem is probably not motivation. It is the absence of a clear path from first click to finished scene."
+            data-ru="Если вы собираете референсы, откладываете портфолио или носите в голове образ, который пока не можете создать, проблема, скорее всего, не в мотивации. Вам не хватает ясного пути от первого клика до законченной сцены."
+          >
+            If you have been collecting references, postponing a portfolio or
+            carrying an image you cannot yet make, the problem is probably not
+            motivation. It is the absence of a clear path from first click to
+            finished scene.
+          </span>
+          <strong
+            data-en="This course gives you that path — with an artist beside you while you build."
+            data-ru="Этот курс даёт такой путь — и художницу рядом, пока вы создаёте свою работу."
+          >
+            This course gives you that path — with an artist beside you while
+            you build.
+          </strong>
+        </p>
+      </div>
+
+      <div class="why-cards">
+        <article class="why-card">
+          <span class="why-number">01</span>
+          <h3
+            data-en="Stop piecing it together alone"
+            data-ru="Перестаньте собирать всё по кусочкам в одиночку"
+          >
+            Stop piecing it together alone
+          </h3>
+          <p
+            data-en="A structured sequence replaces tab-hopping and guesswork. You learn what matters now, what can wait and how each skill connects to the next."
+            data-ru="Последовательная программа заменяет бесконечные вкладки и догадки. Вы понимаете, что важно сейчас, что может подождать и как каждый навык связан со следующим."
+          >
+            A structured sequence replaces tab-hopping and guesswork. You
+            learn what matters now, what can wait and how each skill connects
+            to the next.
+          </p>
+        </article>
+
+        <article class="why-card">
+          <span class="why-number">02</span>
+          <h3
+            data-en="Make something that is yours"
+            data-ru="Создайте работу, которая принадлежит вам"
+          >
+            Make something that is yours
+          </h3>
+          <p
+            data-en="You do not copy a generic exercise and forget it. Every technique moves your own scene, story or portfolio project closer to something you can show."
+            data-ru="Вы не копируете безликое упражнение, чтобы потом его забыть. Каждая техника приближает вашу собственную сцену, историю или работу для портфолио к результату, который можно показать."
+          >
+            You do not copy a generic exercise and forget it. Every technique
+            moves your own scene, story or portfolio project closer to
+            something you can show.
+          </p>
+        </article>
+
+        <article class="why-card">
+          <span class="why-number">03</span>
+          <h3
+            data-en="Leave with a way forward"
+            data-ru="Уйдите с пониманием, как двигаться дальше"
+          >
+            Leave with a way forward
+          </h3>
+          <p
+            data-en="You build a repeatable workflow, not a one-time trick — so the next project begins with confidence instead of another search for where to start."
+            data-ru="Вы выстраиваете повторяемый рабочий процесс, а не осваиваете одноразовый трюк — поэтому следующий проект начинается с уверенности, а не с нового поиска точки старта."
+          >
+            You build a repeatable workflow, not a one-time trick — so the next
+            project begins with confidence instead of another search for where
+            to start.
+          </p>
+        </article>
+      </div>
+
+      <div class="why-outcome">
+        <h3
+          data-en="20 classes. One coherent path. A project you can point to."
+          data-ru="20 занятий. Один понятный путь. Проект, который можно показать."
+        >
+          20 classes. One coherent path. A project you can point to.
+        </h3>
+
+        <div class="why-action">
+          <p
+            data-en="By the end, Blender should feel less like an intimidating interface and more like a material you can think through. Beginners are welcome."
+            data-ru="К концу курса Blender должен ощущаться не как пугающий интерфейс, а как материал, через который можно мыслить. Начинающие приветствуются."
+          >
+            By the end, Blender should feel less like an intimidating
+            interface and more like a material you can think through.
+            Beginners are welcome.
+          </p>
+
+          <a
+            class="course-link"
+            href="#learn"
+            data-en="See the course options →"
+            data-ru="Посмотреть варианты курса →"
+          >
+            See the course options →
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="learn" id="learn">
       <div class="learn-heading">
         <div>
           <div
             class="section-label"
-            data-en="02 / Ways to work together"
-            data-ru="02 / Форматы сотрудничества"
+            data-en="03 / Ways to work together"
+            data-ru="03 / Форматы сотрудничества"
           >
-            02 / Ways to work together
+            03 / Ways to work together
           </div>
 
           <h2
@@ -1002,11 +1386,11 @@
 
           <a
             class="course-link"
-            href="https://formandfiction.studio/enrollment.html?course=group"
-            data-en="Enrol in group course →"
-            data-ru="Записаться на групповой курс →"
+            href="enrollment.html?course=group"
+            data-en="Choose the group course →"
+            data-ru="Выбрать групповой курс →"
           >
-            Enrol in group course →
+            Choose the group course →
           </a>
         </article>
 
@@ -1054,11 +1438,11 @@
 
           <a
             class="course-link"
-            href="https://formandfiction.studio/enrollment.html?course=private"
-            data-en="Enrol in private course →"
-            data-ru="Записаться на индивидуальный курс →"
+            href="enrollment.html?course=private"
+            data-en="Choose private mentoring →"
+            data-ru="Выбрать индивидуальное обучение →"
           >
-            Enrol in private course →
+            Choose private mentoring →
           </a>
         </article>
 
@@ -1113,10 +1497,10 @@
           <a
             class="course-link"
             href="#contact"
-            data-en="Enquire about a programme →"
-            data-ru="Запросить программу →"
+            data-en="Design a programme together →"
+            data-ru="Разработать программу вместе →"
           >
-            Enquire about a programme →
+            Design a programme together →
           </a>
         </article>
 
@@ -1128,10 +1512,10 @@
         <div>
           <div
             class="section-label"
-            data-en="03 / Selected work"
-            data-ru="03 / Избранные работы"
+            data-en="04 / Selected work"
+            data-ru="04 / Избранные работы"
           >
-            03 / Selected work
+            04 / Selected work
           </div>
 
           <h2
@@ -1142,26 +1526,11 @@
           </h2>
         </div>
 
-        <a
-          class="text-link"
-          href="https://capitalistwhore.me"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-en="Visit full archive ↗"
-          data-ru="Посмотреть полный архив ↗"
-        >
-          Visit full archive ↗
-        </a>
       </div>
 
       <div class="work-grid">
 
-        <a
-          class="work-card"
-          href="https://capitalistwhore.me"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <article class="work-card">
           <img
             src="work-sua-ana.jpg"
             alt="Digital artwork from ANOL1: Su Ana"
@@ -1177,16 +1546,11 @@
               Installation · CGI · Mythology · 2025
             </p>
           </div>
-        </a>
+        </article>
 
         <div>
 
-          <a
-            class="work-card small work-anol1-card"
-            href="https://capitalistwhore.me"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <article class="work-card small work-anol1-card">
             <img
               src="work-anol1.jpg"
               alt="Artwork from the ANOL1 series"
@@ -1202,14 +1566,9 @@
                 Digital sculpture
               </p>
             </div>
-          </a>
+          </article>
 
-          <a
-            class="work-card small"
-            href="https://capitalistwhore.me"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <article class="work-card small">
             <img
               src="work-loosing-game.jpg"
               alt="That's not to say it's a loosing game"
@@ -1225,7 +1584,7 @@
                 Digital artwork
               </p>
             </div>
-          </a>
+          </article>
 
         </div>
       </div>
@@ -1235,10 +1594,10 @@
       <div>
         <div
           class="section-label"
-          data-en="04 / Teaching philosophy"
-          data-ru="04 / Принципы обучения"
+          data-en="05 / Teaching philosophy"
+          data-ru="05 / Принципы обучения"
         >
-          04 / Teaching philosophy
+          05 / Teaching philosophy
         </div>
 
         <h2
@@ -1384,10 +1743,10 @@
       <div>
         <div
           class="section-label"
-          data-en="06 / Start a conversation"
-          data-ru="06 / Начать разговор"
+          data-en="07 / Start a conversation"
+          data-ru="07 / Начать разговор"
         >
-          06 / Start a conversation
+          07 / Start a conversation
         </div>
 
         <h2
@@ -1411,10 +1770,10 @@
         <a
           class="contact-button"
           href="mailto:bissen@proton.me"
-          data-en="Send an enquiry →"
-          data-ru="Отправить запрос →"
+          data-en="Tell me about your idea →"
+          data-ru="Рассказать о своей идее →"
         >
-          Send an enquiry →
+          Tell me about your idea →
         </a>
       </div>
     </section>
